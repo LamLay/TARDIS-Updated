@@ -1,4 +1,4 @@
-# Update-for-TARDIS
+# TARDIS (Updated)
 ## Artificial Intelligence Powered Prediction for Online Adaptive Patient Specific QA ## 
 
 ### A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ###
