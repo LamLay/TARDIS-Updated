@@ -1,7 +1,7 @@
 # Update-for-TARDIS
-# Artificial Intelligence Powered Prediction for Online Adaptive Patient Specific QA # 
+## Artificial Intelligence Powered Prediction for Online Adaptive Patient Specific QA ## 
 
-## A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ##
+### A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ###
 This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-tool-for-approximating-radiotherapy-delivery-via-informed-simulation-tardis
 
 Note: Currently the machine learning models that use Bootstrap Aggregation (Bagging) are too big to be uploaded on GitHub. I will upload them later.
