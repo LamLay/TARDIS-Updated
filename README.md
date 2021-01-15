@@ -4,8 +4,6 @@
 ### A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ###
 This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-tool-for-approximating-radiotherapy-delivery-via-informed-simulation-tardis
 
-Note: Currently the machine learning models that use Bootstrap Aggregation (Bagging) are too big to be uploaded on GitHub. I will upload them later.
-
 Tutorial:
 
 * Download tool.py and the models. Make sure that the models and the tool.py are in the same folder. 
