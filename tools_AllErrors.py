@@ -9,7 +9,6 @@ from tkinter import *
 from tkinter import filedialog
 from tkinter.ttk import Combobox
 import pydicom
-import numpy
 import math
 import pickle
 import pandas as pd 
