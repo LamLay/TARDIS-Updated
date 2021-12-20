@@ -1,4 +1,4 @@
-Copyright (c) GitHub Inc.
+Copyright (c) 2020 GitHub Inc.
 
 The copyrights of the software and contents are owned by Duke University and are made available for academic purposes only. Outside contributions to the Duke-owned code base and contents cannot be accepted unless the contributor transfers the copyright to those changes over to Duke University.
 
