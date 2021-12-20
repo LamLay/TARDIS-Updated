@@ -4,7 +4,7 @@
 ### A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ###
 This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-tool-for-approximating-radiotherapy-delivery-via-informed-simulation-tardis
 
-Tutorial:
+Instructions:
 
 * Download all files. It is recommended to have the models, the scaler.plk files, and the tool.py in the same folder. 
 * Open the tool.py with Python platform and run the script. 
