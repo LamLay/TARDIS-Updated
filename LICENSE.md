@@ -1,5 +1,5 @@
 GNU General Public License version 3
-License Copyright: Copyright © 2007 Free Software Foundation, Inc.
+Copyright © 2007 Free Software Foundation, Inc.
 Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
 
 Preamble
