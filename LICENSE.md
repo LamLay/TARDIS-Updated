@@ -4,7 +4,6 @@ Copyright © 2007 Free Software Foundation, Inc.
 
 Everyone is permitted to copy and distribute verbatim copies of this license document, but changing it is not allowed.
 
-
 Preamble
 
 The GNU General Public License is a free, copyleft license for software and other kinds of works.
@@ -26,7 +25,6 @@ Some devices are designed to deny users access to install or run modified versio
 Finally, every program is threatened constantly by software patents. States should not allow patents to restrict development and use of software on general-purpose computers, but in those that do, we wish to avoid the special danger that patents applied to a free program could make it effectively proprietary. To prevent this, the GPL assures that patents cannot be used to render the program non-free.
 
 The precise terms and conditions for copying, distribution and modification follow.
-
 
 TERMS AND CONDITIONS
 
