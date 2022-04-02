@@ -6,7 +6,7 @@ This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-
 
 Instructions:
 
-* Download all files. It is recommended to have the models, the scaler.plk files, and the tool.py in the same folder. 
+* Download all files. It is recommended to have the models, the scaler.plk files, and the tools_AllErrors.py in the same folder. 
 * Open the tool.py with Python platform and run the script. 
 * At GUI, input desired DICOM-RT plan by clicking "Open" button.  
 * Decide what type of MLC errors you want to predict. The tool can predict 3 types of MLC errors:
