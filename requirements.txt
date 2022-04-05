@@ -1,0 +1,9 @@
+# Python 3.7+
+
+scikit-learn==0.20.3        # Scikit-learn needs to be 0.20.3 (recommended) up to 0.21.3
+pydicom==2.3.0
+numpy==1.19.5
+pandas==1.1.5
+spyder-kernels==2.1.1       # Spyder should be ≥ 2.1.1 and < 2.2.0
+pyqtwebengine==5.12.1       # via spyder
+pyqt5==5.12.3               # via spyder
