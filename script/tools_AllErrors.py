@@ -2,18 +2,25 @@
 """
 Created on Thu Dec 10 10:55:11 2020
 
-@author: lml64
+@author: Lam Lay
 """
 
-from tkinter import *
+from tkinter import Tk
+from tkinter import Label
+from tkinter import Button
+from tkinter import Radiobutton
+from tkinter import IntVar
+from tkinter import StringVar
+from tkinter import Entry
+from tkinter import messagebox
 from tkinter import filedialog
-from tkinter.ttk import Combobox
+from pathlib import Path
+import os
 import pydicom
 import math
 import pickle
 import pandas as pd 
 import numpy as np 
-import scipy.stats as stats
 import random
 
 
@@ -21,29 +28,39 @@ import random
 # GUI buttons
 window = Tk()
 window.title("Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS)")
-lbl1 = Label(window, text="Input DICOM-RT plan file:")
-lbl1.grid(columnspan=5, row=0)
+lbl1 = Label(window, text="Input DICOM-RT plan:")
+lbl1.grid(columnspan=2, row=0)
+lbl18 = Label(window, text="Select Model's Folder")
+lbl18.grid(columnspan=2, row=1)
+lbl19 = Label(window, text="Select Scaler's Folder")
+lbl19.grid(columnspan=2, row=2)
 lbl2 = Label(window, text="")
-lbl2.grid(columnspan=5, row=1) 
+lbl2.grid(columnspan=5, row=3) 
 lbl3 = Label(window, text="Select machine learning prediction model:")
-lbl3.grid(columnspan=5, row=2) 
+lbl3.grid(columnspan=5, row=4) 
 lbl4 = Label(window, text="IMRT - Predicted Delivery Error")
-lbl4.grid(column=2, row=3) 
+lbl4.grid(columnspan=5, row=5) 
 lbl5 = Label(window, text="IMRT - Predicted Conversion Error")
-lbl5.grid(column=2, row=5) 
+lbl5.grid(columnspan=5, row=7) 
 lbl6 = Label(window, text="IMRT - Predicted Combined Error")
-lbl6.grid(column=2, row=7) 
+lbl6.grid(columnspan=5, row=9) 
 lbl7 = Label(window, text="")
-lbl7.grid(columnspan=5, row=9)
+lbl7.grid(columnspan=5, row=11)
 
 lbl8 = Label(window, text="VMAT - Predicted Delivery Error")
-lbl8.grid(column=2, row=10) 
+lbl8.grid(columnspan=5, row=12) 
 lbl9 = Label(window, text="VMAT - Predicted Conversion Error")
-lbl9.grid(column=2, row=12) 
+lbl9.grid(columnspan=5, row=14) 
 lbl10 = Label(window, text="VMAT - Predicted Combined Error")
-lbl10.grid(column=2, row=14) 
+lbl10.grid(columnspan=5, row=16) 
 lbl11 = Label(window, text="")
-lbl11.grid(columnspan=5, row=16) 
+lbl11.grid(columnspan=5, row=18) 
+
+lbl20 = Label(window, text="Output Folder")
+lbl20.grid(column=3, row=0)
+lbl21 = Label(window, text="Type 'Saved_Filename.dcm'")
+lbl21.grid(column=3, row=1)
+
 
 # Open Dicom Files
 def clicked():
@@ -55,250 +72,361 @@ def clicked():
     lbl1.configure(text=plan_name)
     
 btn = Button(window, text="Open", command=clicked)
-btn.grid(column=4, row=0)
+btn.grid(column=2, row=0)
+
+# Open Models Folder
+def clickedModelDir():
+    global ModelsDir
+    currdir = os.getcwd()
+    temp_path = filedialog.askdirectory(initialdir=currdir, title='Please select a directory')
+    ModelsDir = Path(temp_path)
     
+    dir_name = temp_path.split('/')
+    dir_index = len(dir_name)
+    dir_name = dir_name[dir_index-1]
+    lbl18.configure(text=dir_name)
+
+btn = Button(window, text="Open", command=clickedModelDir)
+btn.grid(column=2, row=1)
+
+# Open Scaler Folder
+def clickedScaler():
+    global scalers_folder
+    currdir = os.getcwd()
+    temp_path2 = filedialog.askdirectory(initialdir=currdir, title='Please select a directory')
+    scalers_folder = Path(temp_path2)
+    
+    dir_name2 = temp_path2.split('/')
+    dir_index2 = len(dir_name2)
+    dir_name2 = dir_name2[dir_index2-1]
+    lbl19.configure(text=dir_name2)
+
+btn = Button(window, text="Open", command=clickedScaler)
+btn.grid(column=2, row=2)
+
+# Open Destination Folder
+def clickedDestination():
+    global destination
+    currdir = os.getcwd()
+    temp_path3 = filedialog.askdirectory(initialdir=currdir, title='Please select a directory')
+    destination = Path(temp_path3)
+    
+    dir_name3 = temp_path3.split('/')
+    dir_index3 = len(dir_name3)
+    dir_name3 = dir_name3[dir_index3-1]
+    lbl20.configure(text=dir_name3)
+
+btn = Button(window, text="Open", command=clickedDestination)
+btn.grid(column=4, row=0)
+
+# Input Predicted DICOM's Filename
+info = StringVar() 
+saved_DICOM_name = Entry(width=20, textvariable=info)
+saved_DICOM_name.place(x=350,y=50) 
+
+
 # Choose Machine Learning Model    
 def clicked1():
     global clf
     global filename
     filename = 'IMRT_LowRes_LinearReg_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked2():
     global clf
     global filename
     filename = 'IMRT_LowRes_DTree_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked3():
     global clf
     global filename
     filename = 'IMRT_LowRes_Boosting_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked4():
     global clf
     global filename
     filename = 'IMRT_LowRes_Bagging_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
-    
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
+
 def clicked5():
     global clf
     global filename
     filename = 'IMRT_LowRes_NeuNet_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked6():
     global clf
     global filename
     filename = 'IMRT_LowRes_LinearReg_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked7():
     global clf
     global filename
     filename = 'IMRT_LowRes_DTree_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked8():
     global clf
     global filename
     filename = 'IMRT_LowRes_Boosting_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked9():
     global clf
     global filename
     filename = 'IMRT_LowRes_Bagging_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
     
 def clicked10():
     global clf
     global filename
     filename = 'IMRT_LowRes_NeuNet_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked11():
     global clf
     global filename
     filename = 'IMRT_LowRes_LinearReg_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked12():
     global clf
     global filename
     filename = 'IMRT_LowRes_DTree_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked13():
     global clf
     global filename
     filename = 'IMRT_LowRes_Boosting_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked14():
     global clf
     global filename
     filename = 'IMRT_LowRes_Bagging_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
     
 def clicked15():
     global clf
     global filename
     filename = 'IMRT_LowRes_NeuNet_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked16():
     global clf
     global filename
     filename = 'VMAT_LowRes_LinearReg_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked17():
     global clf
     global filename
     filename = 'VMAT_LowRes_DTree_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked18():
     global clf
     global filename
     filename = 'VMAT_LowRes_Boosting_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked19():
     global clf
     global filename
     filename = 'VMAT_LowRes_Bagging_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
     
 def clicked20():
     global clf
     global filename
     filename = 'VMAT_LowRes_NeuNet_Delivery.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked21():
     global clf
     global filename
     filename = 'VMAT_LowRes_LinearReg_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked22():
     global clf
     global filename
     filename = 'VMAT_LowRes_DTree_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked23():
     global clf
     global filename
     filename = 'VMAT_LowRes_Boosting_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked24():
     global clf
     global filename
     filename = 'VMAT_LowRes_Bagging_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
     
 def clicked25():
     global clf
     global filename
     filename = 'VMAT_LowRes_NeuNet_Conversion.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked26():
     global clf
     global filename
     filename = 'VMAT_LowRes_LinearReg_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked27():
     global clf
     global filename
     filename = 'VMAT_LowRes_DTree_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked28():
     global clf
     global filename
     filename = 'VMAT_LowRes_Boosting_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 def clicked29():
     global clf
     global filename
     filename = 'VMAT_LowRes_Bagging_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    try: 
+        clf = pickle.load(open(filepath, 'rb'))
+    except FileNotFoundError as e:
+        messagebox.showerror(message='error: "{}"'.format(e)+'\n'
+                             'Please convert the bagged tree model into an .sav file before using the tool.')
+        raise KeyboardInterrupt
     
 def clicked30():
     global clf
     global filename
     filename = 'VMAT_LowRes_NeuNet_Combined.sav'
-    clf = pickle.load(open(filename, 'rb'))
+    filepath = os.path.join(ModelsDir, filename)
+    clf = pickle.load(open(filepath, 'rb'))
     
 v = IntVar()
 rad1 = Radiobutton(window,text='Linear', variable = v, value=1, command=clicked1)
-rad1.grid(column=0, row=4)
+rad1.grid(column=0, row=6)
 rad2 = Radiobutton(window,text='Decision Tree', variable = v, value=2, command=clicked2)
-rad2.grid(column=1, row=4)
+rad2.grid(column=1, row=6)
 rad3 = Radiobutton(window,text='Boosted Tree', variable = v, value=3, command=clicked3)
-rad3.grid(column=2, row=4) 
+rad3.grid(column=2, row=6) 
 rad4 = Radiobutton(window,text='Bagged Tree', variable = v, value=4, command=clicked4)
-rad4.grid(column=3, row=4)
+rad4.grid(column=3, row=6)
 rad5 = Radiobutton(window,text='Neural Network', variable = v, value=5, command=clicked5)
-rad5.grid(column=4, row=4)  
+rad5.grid(column=4, row=6)  
 rad6 = Radiobutton(window,text='Linear', variable = v, value=6, command=clicked6)
-rad6.grid(column=0, row=6)
+rad6.grid(column=0, row=8)
 rad7 = Radiobutton(window,text='Decision Tree', variable = v, value=7, command=clicked7)
-rad7.grid(column=1, row=6)
+rad7.grid(column=1, row=8)
 rad8 = Radiobutton(window,text='Boosted Tree', variable = v, value=8, command=clicked8)
-rad8.grid(column=2, row=6) 
+rad8.grid(column=2, row=8) 
 rad9 = Radiobutton(window,text='Bagged Tree', variable = v, value=9, command=clicked9)
-rad9.grid(column=3, row=6)
+rad9.grid(column=3, row=8)
 rad10 = Radiobutton(window,text='Neural Network', variable = v, value=10, command=clicked10)
-rad10.grid(column=4, row=6)
+rad10.grid(column=4, row=8)
 rad11 = Radiobutton(window,text='Linear', variable = v, value=11, command=clicked11)
-rad11.grid(column=0, row=8)
+rad11.grid(column=0, row=10)
 rad12 = Radiobutton(window,text='Decision Tree', variable = v, value=12, command=clicked12)
-rad12.grid(column=1, row=8)
+rad12.grid(column=1, row=10)
 rad13 = Radiobutton(window,text='Boosted Tree', variable = v, value=13, command=clicked13)
-rad13.grid(column=2, row=8) 
+rad13.grid(column=2, row=10) 
 rad14 = Radiobutton(window,text='Bagged Tree', variable = v, value=14, command=clicked14)
-rad14.grid(column=3, row=8)
+rad14.grid(column=3, row=10)
 rad15 = Radiobutton(window,text='Neural Network', variable = v, value=15, command=clicked15)
-rad15.grid(column=4, row=8) 
+rad15.grid(column=4, row=10) 
 rad16 = Radiobutton(window,text='Linear', variable = v, value=16, command=clicked16)
-rad16.grid(column=0, row=11)
+rad16.grid(column=0, row=13)
 rad17 = Radiobutton(window,text='Decision Tree', variable = v, value=17, command=clicked17)
-rad17.grid(column=1, row=11)
+rad17.grid(column=1, row=13)
 rad18 = Radiobutton(window,text='Boosted Tree', variable = v, value=18, command=clicked18)
-rad18.grid(column=2, row=11) 
+rad18.grid(column=2, row=13) 
 rad19 = Radiobutton(window,text='Bagged Tree', variable = v, value=19, command=clicked19)
-rad19.grid(column=3, row=11)
+rad19.grid(column=3, row=13)
 rad20 = Radiobutton(window,text='Neural Network', variable = v, value=20, command=clicked20)
-rad20.grid(column=4, row=11) 
+rad20.grid(column=4, row=13) 
 rad21 = Radiobutton(window,text='Linear', variable = v, value=21, command=clicked21)
-rad21.grid(column=0, row=13)
+rad21.grid(column=0, row=15)
 rad22 = Radiobutton(window,text='Decision Tree', variable = v, value=22, command=clicked22)
-rad22.grid(column=1, row=13)
+rad22.grid(column=1, row=15)
 rad23 = Radiobutton(window,text='Boosted Tree', variable = v, value=23, command=clicked23)
-rad23.grid(column=2, row=13) 
+rad23.grid(column=2, row=15) 
 rad24 = Radiobutton(window,text='Bagged Tree', variable = v, value=24, command=clicked24)
-rad24.grid(column=3, row=13)
+rad24.grid(column=3, row=15)
 rad25 = Radiobutton(window,text='Neural Network', variable = v, value=25, command=clicked25)
-rad25.grid(column=4, row=13) 
+rad25.grid(column=4, row=15) 
 rad26 = Radiobutton(window,text='Linear', variable = v, value=26, command=clicked26)
-rad26.grid(column=0, row=15)
+rad26.grid(column=0, row=17)
 rad27 = Radiobutton(window,text='Decision Tree', variable = v, value=27, command=clicked27)
-rad27.grid(column=1, row=15)
+rad27.grid(column=1, row=17)
 rad28 = Radiobutton(window,text='Boosted Tree', variable = v, value=28, command=clicked28)
-rad28.grid(column=2, row=15) 
+rad28.grid(column=2, row=17) 
 rad29 = Radiobutton(window,text='Bagged Tree', variable = v, value=29, command=clicked29)
-rad29.grid(column=3, row=15)
+rad29.grid(column=3, row=17)
 rad30 = Radiobutton(window,text='Neural Network', variable = v, value=30, command=clicked30)
-rad30.grid(column=4, row=15) 
+rad30.grid(column=4, row=17) 
   
 
 # Run Button
@@ -599,9 +727,14 @@ def clicked31():
                 gantry_angle_degree=[]
                 gantry_angle_rad=[]
                 for i in range(cp): 
-                    ga=ds[0x300a,0xb0][field_number][0x300a,0x111][i][0x300a,0x11e].value  
-                    gantryangle=ga/180*math.pi
-                    gantry_angle_actualdegree.append(ga)
+                    try:
+                        ga=ds[0x300a,0xb0][field_number][0x300a,0x111][i][0x300a,0x11e].value  
+                        gantryangle=ga/180*math.pi
+                        gantry_angle_actualdegree.append(ga)
+                    except KeyError as e:
+                        messagebox.showerror(message='error: "{}"'.format(e)+'\n'+
+                                             'You may be trying to predict VMAT errors in a non-VMAT file.')
+                        raise KeyboardInterrupt
                     if ga<180:
                         ga=180-ga
                     elif ga>180:
@@ -872,8 +1005,8 @@ def clicked31():
                 gantry_velocity_1 = [x for xs in gantry_velocity for x in xs]
                 gantry_acceleration_1 = [x for xs in gantry_acceleration for x in xs]
                 Bank_all = [x for xs in bank for x in xs]
-                diff_pos_all = [x for xs in diff_pos for x in xs]
-                diff_angle_all = [x for xs in diff_angle for x in xs]
+                #diff_pos_all = [x for xs in diff_pos for x in xs]
+                #diff_angle_all = [x for xs in diff_angle for x in xs]
                 
                 dataset.append(index_1)
                 dataset.append(CP_all)
@@ -945,23 +1078,27 @@ def clicked31():
             model23 = "VMAT_LowRes_Boosting_Conversion.sav" in filename
             model24 = "VMAT_LowRes_Bagging_Conversion.sav" in filename
             model25 = "VMAT_LowRes_NeuNet_Conversion.sav" in filename
-            model26 = "VMAT_LowRes_LinearReg_Combined.sav" in filename
-            model27 = "VMAT_LowRes_DTree_Combined.sav" in filename
-            model28 = "VMAT_LowRes_Boosting_Combined.sav" in filename
-            model29 = "VMAT_LowRes_Bagging_Combined.sav" in filename
-            model30 = "VMAT_LowRes_NeuNet_Combined.sav" in filename
+            #model26 = "VMAT_LowRes_LinearReg_Combined.sav" in filename
+            #model27 = "VMAT_LowRes_DTree_Combined.sav" in filename
+            #model28 = "VMAT_LowRes_Boosting_Combined.sav" in filename
+            #model29 = "VMAT_LowRes_Bagging_Combined.sav" in filename
+            #model30 = "VMAT_LowRes_NeuNet_Combined.sav" in filename
             
             global y1, X
             # For IMRT Models
             if model1 or model2 or model3 or model4 or model5 or model6 or model7 or model8 or model9 or model10 or model11 or model12 or model13 or model14 or model15 is True:
                 X = li[field_number][['CP','MU','MLC_velocity','MLC_acceleration','Cumulative % of MU',
                          'Gravity Vector-MLC','Gravity Vector-Gantry','Dose Rate','Bank']].values.reshape(-1,9)
-                scaler = pickle.load(open('IMRT_scaler.pkl', 'rb'))                
+                scaler_name = 'IMRT_scaler.pkl'
+                scalerpath = os.path.join(scalers_folder, scaler_name)
+                scaler = pickle.load(open(scalerpath, 'rb'))                
             else: # For VMAT Models
                 X = li[field_number][['CP','MU','MLC_velocity','MLC_acceleration','Bank','Dose Rate','Cumulative % of MU',
                                      'Gravity Vector-MLC','Gravity Vector-Gantry','Gantry_velocity',
                                      'Gantry_acceleration']].values.reshape(-1,11)
-                scaler = pickle.load(open('VMAT_scaler.pkl', 'rb'))
+                scaler_name = 'VMAT_scaler.pkl'
+                scalerpath = os.path.join(scalers_folder, scaler_name)
+                scaler = pickle.load(open(scalerpath, 'rb'))
             
             try: 
                 X = scaler.transform(X)
@@ -1033,7 +1170,12 @@ def clicked31():
                         new_order.append(row)
             li3 = li3.reindex(new_order)
             li3 = li3.reset_index(drop=True)
-            li3.to_csv("RTDICOM_Field_"+str(field_number)+".csv")
+            
+            name = saved_DICOM_name.get().split('.')
+            name = '.'.join(name[:-1])
+            csv_name =  name + "_RTDICOM_Field_"+str(field_number)+".csv"
+            final_path = os.path.join(destination, csv_name)
+            li3.to_csv(final_path)
             
             # Take predicted MLC position to DICOM
             global col_edited, actual_mlc1, actual_mlc2
@@ -1071,29 +1213,37 @@ def clicked31():
         return [i ** 2 for i in list]
     rms_all = str(round(np.sqrt(np.mean(square(rms_list))),4))
     max_all = str(round(max(max_list),4))
+    
     # Show RMS and Max Error    
     lbl12.configure(text="RMS of Predicted MLC Error: "+rms_all+ " mm")
     lbl13.configure(text="Max of Predicted MLC Error: "+max_all+ " mm")
     
     # Save new revised DICOM
-    ds.save_as("Predicted_DICOM.dcm")
+    print(saved_DICOM_name.get())
+    final_path = os.path.join(destination, saved_DICOM_name.get())
+    ds.save_as(final_path, write_like_original=False)
+    print('___________________________________________________')
+    print('A new DICOM has been saved in your selected folder.')
+    messagebox.showinfo(message='A new DICOM has been saved in your selected folder.')
 
 
 # GUI buttons
-lbl12 = Label(window, text="RMS of Predicted MLC Error:")
-lbl12.grid(column=0, columnspan=2, row=17)
-lbl13 = Label(window, text="Max of Predicted MLC Error:")
-lbl13.grid(column=2, columnspan=2, row=17)
 btn = Button(window, text="Run", command=clicked31)
-btn.grid(column=2, row=18)
+btn.grid(columnspan=5, row=19)
+lbl22 = Label(window, text="")
+lbl22.grid(columnspan=5, row=20)
+lbl12 = Label(window, text="RMS of Predicted MLC Error:")
+lbl12.grid(column=0, columnspan=2, row=21)
+lbl13 = Label(window, text="Max of Predicted MLC Error:")
+lbl13.grid(column=2, columnspan=2, row=21)
 lbl14 = Label(window, text="")
-lbl14.grid(columnspan=5, row=19)
+lbl14.grid(columnspan=5, row=22)
 lbl15 = Label(window, text="For research or academic purposes. Not intended for clinical use.")
-lbl15.grid(columnspan=5, row=20)
+lbl15.grid(columnspan=5, row=23)
 lbl16 = Label(window, text="For researchers, any publication using this tool please cite the accompanying paper")
-lbl16.grid(columnspan=5, row=21)
+lbl16.grid(columnspan=5, row=24)
 lbl17 = Label(window, text="'Lay, Chuang, Adamson, Giles, A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS), 2020'")
-lbl17.grid(columnspan=5, row=22)
+lbl17.grid(columnspan=5, row=25)
 
 
 window.mainloop()
