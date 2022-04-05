@@ -6,16 +6,19 @@ This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-
 
 Instructions:
 
-* Download all files. It is recommended to have the models, the scaler.plk files, and the tools_AllErrors.py in the same folder. 
-* Open the tool.py with Python platform and run the script. 
-* At GUI, input desired DICOM-RT plan by clicking "Open" button.  
+* Download all files and folders. 
+* Open the tools_AllErrors.py with a Python platform and run the script. 
+* At GUI, click the "Open" buttons to input desired DICOM-RT plan, select folders that have the machine learning models and scaler.pkl files. 
+* Select the output folder where you want to save the new DICOM-RT plan, which is the output of the tool.
+* Type the name of the output file in the textbox in GUI.   
 * Decide what type of MLC errors you want to predict. The tool can predict 3 types of MLC errors:
   * Delivery error at the machine
   * Conversion error from DICOM-RT to deliverable trajectory
   * Combined error - sum of delivery error and conversion error 
-* Choose one machine learning model based on treatment technique (IMRT or VMAT). Then run the tool.  
-* When the prediction process is completed, the tool will automatically generate a new DICOM-RT with predicted MLC positions, and command separate values (CSV) files including mechanical parameters and predicted MLC errors and positions for individual field/arc. 
-* Re-import the new DICOM-RT into treatment planning system to evaluate the change in dose. 
+* Choose one machine learning model based on treatment technique (IMRT or VMAT). 
+* Run the tool by clicking the "Run" button.  
+* When the prediction process is completed, the tool will automatically generate a new DICOM-RT plan with predicted MLC positions, and command separate values (CSV) files including mechanical parameters and predicted MLC errors and positions for individual field/arc.  
+* Re-import the new DICOM-RT plan into a treatment planning system to evaluate the change in dose. 
 
 For research or academic purposes. Not intended for clinical use. 
 For researchers, any publication using this tool please cite the accompanying paper 
