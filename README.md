@@ -8,7 +8,7 @@ This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-
 
 * Download and unzip all files and folders. 
 * If you plan to use the _bagged tree models_ later, convert them from .rar files into .sav files. 
-* Instructions to obtain the correct Python version and packages are provided in the **requirements.txt** file. 
+* Instructions to obtain the correct Python version and packages are provided in the **Requirements.md** file. 
 * Open the **tools_AllErrors.py** with a Python platform and run the script. 
 * At GUI, click the "Open" buttons to input desired DICOM-RT plan, select folders that have the machine learning models and scaler.pkl files. 
 * Select the output folder where you want to save the new DICOM-RT plan, which is the output of the tool.
