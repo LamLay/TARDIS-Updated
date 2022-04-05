@@ -24,13 +24,13 @@ You can **create a virtual environment** in command prompt (cmd) or terminal to 
 *	python -m pip install scikit-learn==0.20.3     # scikit-learn version 0.20.3 is recommended
 *	pip install pydicom
 *	pip install pandas
-*	pip install spyder-kernels==2.1.1       # Spyder should be ≥ 2.1.1 and < 2.2.0
+*	pip install spyder-kernels==2.1.1       # Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0
   * if there are warnings about pyqtwebengine and pyqt5, try: 
     - pip install --upgrade --user pyqtwebengine==5.12.1
     - pip install --upgrade --user pyqt5==5.12.3
 *	python -c "import sys; print(sys.executable)"   # **Copy the path** returned by this command
 *	conda deactivate              
-*	spyder 			# Spyder is recommended to run the tool
+*	spyder 			
 
 If you still cannot open the Spyder, close and reopen the cmd/terminal and then try:
 *	cd <new environment>         
