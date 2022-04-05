@@ -1,16 +1,16 @@
 **Python version and packages:**
-•	Python 3.6 or great
-•	Scikit-learn needs to be 0.20.3 (recommended) up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
-- If you have this error: ModuleNotFoundError: No module named 'sklearn.linear_model.base' while running the tool, it means you are not having the correct version of scikit-learn. 
+*	Python 3.6 or great
+*	Scikit-learn needs to be 0.20.3 (recommended) up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
+If you have this error: ModuleNotFoundError: No module named 'sklearn.linear_model.base' while running the tool, it means you are not having the correct version of scikit-learn. 
 
 **Install:**
-•	pip install pydicom            # The latest version (2.3.0) should work
-•	pip install pandas
-•	pip install spyder-kernels==2.1.1
+*	pip install pydicom            # The latest version (2.3.0) should work
+*	pip install pandas
+*	pip install spyder-kernels==2.1.1
 
 **Check your python and sklearn versions in cmd/terminal:**
-•	python --version
-•	conda list scikit
+*	python --version
+*	conda list scikit
 
 You can **create a virtual environment** in command prompt (cmd) or terminal to run the tool. Here are the instructions in cmd/terminal: 
 •	pip install virtualenv
