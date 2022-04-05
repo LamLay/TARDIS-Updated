@@ -4,11 +4,12 @@
 ### A Tool for Approximating Radiotherapy Delivery via Informed Simulation (TARDIS) ###
 This is the update of Chuang's project: https://github.com/k1a2i3oscar/TARDIS#a-tool-for-approximating-radiotherapy-delivery-via-informed-simulation-tardis
 
-Instructions:
+**Instructions:**
 
 * Download and unzip all files and folders. 
-* If you plan to use the bagged tree models later, convert them from .rar files into .sav files. 
-* Open the tools_AllErrors.py with a Python platform and run the script. 
+* If you plan to use the _bagged tree models_ later, convert them from .rar files into .sav files. 
+* Instructions to obtain the correct Python version and packages are provided in the _requirements.txt_ file. 
+* Open the **tools_AllErrors.py** with a Python platform and run the script. 
 * At GUI, click the "Open" buttons to input desired DICOM-RT plan, select folders that have the machine learning models and scaler.pkl files. 
 * Select the output folder where you want to save the new DICOM-RT plan, which is the output of the tool.
 * Type the name of the output file in the textbox in GUI.   
@@ -21,7 +22,7 @@ Instructions:
 * When the prediction process is completed, the tool will automatically generate a new DICOM-RT plan with predicted MLC positions, and command separate values (CSV) files including mechanical parameters and predicted MLC errors and positions for individual field/arc.  
 * Re-import the new DICOM-RT plan into a treatment planning system to evaluate the change in dose. 
 
-Note: 
+**Note:** 
 * There will be an error when an IMRT DICOM plan is input into a VMAT model because an IMRT DICOM doesn’t have any information about gantry rotation. In this case, a message box will appear and the program will stop running. 
 * A VMAT plan has all information needed in an IMRT plan, so the script will produce no error if a VMAT DICOM is input into an IMRT model. The user should make sure that the input plan is indeed a VMAT plan before using a VMAT model to predict MLC errors. 
 •	The bagged tree models need to be converted into .sav files before using the tool. If the user tries to use a bagged tree model before the conversion, a message box will appear and the program will stop running.
