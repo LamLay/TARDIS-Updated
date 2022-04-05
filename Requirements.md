@@ -25,7 +25,7 @@ You can **create a virtual environment** in command prompt (cmd) or terminal to 
 *	pip install pydicom
 *	pip install pandas
 *	pip install spyder-kernels==2.1.1       # Spyder should be ≥ 2.1.1 and < 2.2.0
-  - if there are warnings about pyqtwebengine and pyqt5, try: 
+  * if there are warnings about pyqtwebengine and pyqt5, try: 
     - pip install --upgrade --user pyqtwebengine==5.12.1
     - pip install --upgrade --user pyqt5==5.12.3
 *	python -c "import sys; print(sys.executable)"   # **Copy the path** returned by this command
