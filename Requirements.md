@@ -1,6 +1,6 @@
 **Python version and packages:**
 *	Python 3.7 or greater
-*	Scikit-learn needs to be 0.20.3 (recommended) up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
+*	Scikit-learn needs to be 0.20.3 _(recommended)_ up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
 
 **Note:**
 If you have this error: ModuleNotFoundError: No module named 'sklearn.linear_model.base' while running the tool, it means you have the incorrect version of scikit-learn. 
@@ -36,4 +36,4 @@ If you still cannot open the Spyder, close and reopen the cmd/terminal and then 
 *	cd <new environment>         
 *	spyder
 
-In Spyder, go to **Preferences > Python Interpreter > Use the following interpreter**, and paste the path copied from the terminal into the text box. You can now use the tool in a virtual environment. 
+In Spyder, go to **Preferences > Python Interpreter > Use the following interpreter**, and _**paste the path**_ copied from the terminal into the text box. You can now use the tool in a virtual environment. 
