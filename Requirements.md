@@ -19,16 +19,16 @@ You can **create a virtual environment** in command prompt (cmd) or terminal to 
 *	virtualenv <new environment>          _(example: virtualenv python2)_
 *	cd <new environment>
 *	Scripts\activate
-*	conda create -n py37 python=3.7      # You can install higher version of python
+*	conda create -n py37 python=3.7      _(You can install higher version of python)_
 *	conda activate py37
-*	python -m pip install scikit-learn==0.20.3     # scikit-learn version 0.20.3 is recommended
+*	python -m pip install scikit-learn==0.20.3     _(scikit-learn version 0.20.3 is recommended)_
 *	pip install pydicom
 *	pip install pandas
-*	pip install spyder-kernels==2.1.1       # Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0
+*	pip install spyder-kernels==2.1.1       _(Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0)_
   * if there are warnings about pyqtwebengine and pyqt5, try: 
     - pip install --upgrade --user pyqtwebengine==5.12.1
     - pip install --upgrade --user pyqt5==5.12.3
-*	python -c "import sys; print(sys.executable)"   # **Copy the path** returned by this command
+*	python -c "import sys; print(sys.executable)"   _(**Copy the path** returned by this command)_
 *	conda deactivate              
 *	spyder 			
 
