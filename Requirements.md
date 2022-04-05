@@ -1,5 +1,5 @@
 **Python version and packages:**
-*	Python 3.6 or great
+*	Python 3.7 or greater
 *	Scikit-learn needs to be 0.20.3 (recommended) up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
 
 **Note:**
@@ -16,7 +16,7 @@ If you have this error: ModuleNotFoundError: No module named 'sklearn.linear_mod
 
 You can **create a virtual environment** in command prompt (cmd) or terminal to run the tool. Here are the instructions in cmd/terminal: 
 *	pip install virtualenv
-*	virtualenv <new environment>          _example: virtualenv python2)_
+*	virtualenv <new environment>          <br /> example: virtualenv python2
 *	cd <new environment>
 *	Scripts\activate
 *	conda create -n py37 python=3.7      # You can install higher version of python
