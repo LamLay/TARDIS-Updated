@@ -33,7 +33,7 @@ You can **create a virtual environment** in command prompt (cmd) or terminal to 
 *	spyder 			
 
 If you still cannot open the Spyder, close and reopen the cmd/terminal and then try:
-*	cd <new environment>         
+*	cd <new environment>          
 *	spyder
 
 In Spyder, go to **Preferences > Python Interpreter > Use the following interpreter**, and _**paste the path**_ copied from the terminal into the text box. You can now use the tool in a virtual environment. 
