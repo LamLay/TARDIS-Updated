@@ -3,7 +3,7 @@
 *	Scikit-learn needs to be 0.20.3 _(recommended)_ up to 0.21.3. Scikit-learn 0.22 or greater will not work. 
 
 **Note:**
-If you have this error: ModuleNotFoundError: No module named 'sklearn.linear_model.base' while running the tool, it means you have the incorrect version of scikit-learn. 
+If you have this error: _ModuleNotFoundError: No module named 'sklearn.linear_model.base'_ while running the tool, it means you have the incorrect version of scikit-learn. 
 
 **Install:**
 *	pip install pydicom            _(The latest version (2.3.0) should work)_
