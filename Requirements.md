@@ -15,13 +15,13 @@ If you have this error: _ModuleNotFoundError: No module named 'sklearn.linear_mo
 *	conda list scikit
 
 You can **create a virtual environment** in command prompt (cmd) or terminal to run the tool. Here are the instructions: 
-*	pip install virtualenv
-*	virtualenv (new environment)          _(example: virtualenv python2)_
-*	cd (new environment)
-*	Scripts\activate
-*	conda create -n py37 python=3.7      _(You can install higher version of python)_
-*	conda activate py37
-*	python -m pip install scikit-learn==0.20.3     _(scikit-learn version 0.20.3 is recommended)_
+1.	pip install virtualenv
+2. virtualenv (new environment)          _(example: virtualenv python2)_
+3.	cd (new environment)
+4. Scripts\activate
+5.	conda create -n py37 python=3.7      _(You can install higher version of python)_
+6.	conda activate py37
+7.	python -m pip install scikit-learn==0.20.3     _(scikit-learn version 0.20.3 is recommended)_
 *	pip install pydicom
 *	pip install pandas
 *	pip install spyder-kernels==2.1.1       _(Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0)_
