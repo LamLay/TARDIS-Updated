@@ -8,6 +8,7 @@ If you have this error: _ModuleNotFoundError: No module named 'sklearn.linear_mo
 **Install:**
 *	pip install pydicom            _(The latest version (2.3.0) should work)_
 *	pip install pandas
+*	pip install numpy
 *	pip install spyder-kernels==2.1.1
 
 **Check your python and sklearn versions in cmd/terminal:**
@@ -22,9 +23,9 @@ You can **create a virtual environment** in command prompt (cmd) or terminal to 
 5.	conda create -n py37 python=3.7      _(You can install higher version of python)_
 6.	conda activate py37
 7.	python -m pip install scikit-learn==0.20.3     _(scikit-learn version 0.20.3 is recommended)_
-8.	pip install pydicom
+8.	pip install pydicom                            _(The latest version (2.3.0) should work)_
 9.	pip install pandas
-10.	pip install spyder-kernels==2.1.1       _(Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0)_
+10.	pip install spyder-kernels==2.1.1             _(Spyder is recommended to run the tool. It should be ≥ 2.1.1 and < 2.2.0)_
   * If there are warnings about _pyqtwebengine_ and _pyqt5_, try: 
     - pip install --upgrade --user pyqtwebengine==5.12.1
     - pip install --upgrade --user pyqt5==5.12.3
