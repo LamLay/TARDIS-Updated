@@ -16,8 +16,8 @@ If you have this error: _ModuleNotFoundError: No module named 'sklearn.linear_mo
 
 You can **create a virtual environment** in command prompt (cmd) or terminal to run the tool. Here are the instructions: 
 *	pip install virtualenv
-*	virtualenv <new environment>          _(example: virtualenv python2)_
-*	cd <new environment>
+*	virtualenv "new environment"          _(example: virtualenv python2)_
+*	cd "new environment"
 *	Scripts\activate
 *	conda create -n py37 python=3.7      _(You can install higher version of python)_
 *	conda activate py37
